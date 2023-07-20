@@ -1,7 +1,16 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { LayoutDashboard } from "lucide-react";
+import {
+    CodeIcon,
+    ImageIcon,
+    LayoutDashboard,
+    MessageSquare,
+    Music,
+    MusicIcon,
+    SettingsIcon,
+    VideoIcon,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -11,6 +20,41 @@ const routes = [
         href: "/dashboard",
         icon: LayoutDashboard,
         color: "text-sky-500",
+    },
+    {
+        label: "Conversation",
+        href: "/conversation",
+        icon: MessageSquare,
+        color: "text-violet-500",
+    },
+    {
+        label: "Image Generation",
+        href: "/image",
+        icon: ImageIcon,
+        color: "text-pink-500",
+    },
+    {
+        label: "Video Generation",
+        href: "/video",
+        icon: VideoIcon,
+        color: "text-orange-500",
+    },
+    {
+        label: "Music Generation",
+        href: "/music",
+        icon: MusicIcon,
+        color: "text-blue-500",
+    },
+    {
+        label: "Code Generation",
+        href: "/code",
+        icon: CodeIcon,
+        color: "text-green-500",
+    },
+    {
+        label: "Settings",
+        href: "/settings",
+        icon: SettingsIcon,
     },
 ];
 
