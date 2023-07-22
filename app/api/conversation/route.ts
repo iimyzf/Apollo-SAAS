@@ -8,17 +8,19 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-export async function POST(request: Request) {
+export async function POST(req: Request) {
     try {
         const { userId } = auth();
-        const body = await request.json();
+        const body = await req.json();
         const { messages } = body;
 
         if (!userId) return new NextResponse("Unauthorized", { status: 401 });
+
         if (!configuration.apiKey)
             return new NextResponse("OpenAI API Key not found", {
                 status: 500,
             });
+
         if (!messages)
             return new NextResponse("Messages not found", { status: 400 });
 
