@@ -58,6 +58,16 @@ const routes = [
     },
 ];
 
+// NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_ZmFuY3ktc25pcGUtNzEuY2xlcmsuYWNjb3VudHMuZGV2JA
+// CLERK_SECRET_KEY=sk_test_xLC8OpCqMn6NFOJ2wrwIZ9KuLaeCKes2aqPzRc2n0n
+
+// NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+// NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+// NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/dashboard
+// NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/dashboard
+
+// OPENAI_API_KEY=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
+
 const Sidebar = () => {
     const pathname = usePathname();
 
