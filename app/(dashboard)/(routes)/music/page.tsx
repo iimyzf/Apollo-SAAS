@@ -1,9 +1,9 @@
 "use client";
 
 import * as z from "zod";
-import { MessageSquare, MusicIcon } from "lucide-react";
+import { MusicIcon } from "lucide-react";
 import Heading from "@/components/heading";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchema } from "./constants";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
@@ -15,15 +15,10 @@ import { ChatCompletionRequestMessage } from "openai";
 import axios from "axios";
 import Empty from "@/components/empty";
 import Loader from "@/components/loader";
-import { cn } from "@/lib/utils";
-import UserAvatar from "@/components/user-avatar";
-import BotAvatar from "@/components/bot-avatar";
 
 const MusicPage = () => {
     const router = useRouter();
-    const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>(
-        []
-    );
+    const [music, setMusic] = useState<string>();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -36,16 +31,12 @@ const MusicPage = () => {
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
-            const userMessage: ChatCompletionRequestMessage = {
-                role: "user",
-                content: values.prompt,
-            };
-            const newMessages = [...messages, userMessage];
-            const response = await axios.post("/api/conversation", {
-                messages: newMessages,
-            });
+            setMusic(undefined);
 
-            setMessages((current) => [...current, userMessage, response.data]);
+            const response = await axios.post("/api/music", values);
+
+            setMusic(response.data.audio);
+
             form.reset();
         } catch (error: any) {
             console.log(error);
@@ -100,10 +91,14 @@ const MusicPage = () => {
                             <Loader />
                         </div>
                     )}
-                    {messages.length === 0 && !isLoading && (
+                    {!music && !isLoading && (
                         <Empty label="No conversation here!" />
                     )}
-                    <div className="flex flex-col-reverse gap-y-4"></div>
+                    {music && (
+                        <audio controls className="w-full mt-8">
+                            <source src={music} />
+                        </audio>
+                    )}
                 </div>
             </div>
         </div>
