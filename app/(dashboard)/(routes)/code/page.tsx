@@ -1,7 +1,7 @@
 "use client";
 
 import * as z from "zod";
-import { Code, MessageSquare } from "lucide-react";
+import { Code } from "lucide-react";
 import Heading from "@/components/heading";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,8 +19,10 @@ import { cn } from "@/lib/utils";
 import UserAvatar from "@/components/user-avatar";
 import BotAvatar from "@/components/bot-avatar";
 import ReactMarkdown from "react-markdown";
+import { useProModule } from "@/hooks/use-pro-module";
 
 const CodePage = () => {
+    const proModal = useProModule();
     const router = useRouter();
     const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>(
         []
@@ -49,7 +51,9 @@ const CodePage = () => {
             setMessages((current) => [...current, userMessage, response.data]);
             form.reset();
         } catch (error: any) {
-            console.log(error);
+            if (error?.response?.status === 403) {
+                proModal.onOpen();
+            }
         } finally {
             router.refresh();
         }

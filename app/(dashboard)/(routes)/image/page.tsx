@@ -14,7 +14,6 @@ import { useState } from "react";
 import axios from "axios";
 import Empty from "@/components/empty";
 import Loader from "@/components/loader";
-import { cn } from "@/lib/utils";
 import {
     Select,
     SelectContent,
@@ -25,8 +24,10 @@ import {
 import { Card, CardFooter } from "@/components/ui/card";
 import Image from "next/image";
 import { Url } from "next/dist/shared/lib/router/router";
+import { useProModule } from "@/hooks/use-pro-module";
 
 const ImagePage = () => {
+    const proModal = useProModule();
     const router = useRouter();
     const [images, setImages] = useState<string[]>([]);
 
@@ -54,7 +55,9 @@ const ImagePage = () => {
             setImages(urls);
             form.reset();
         } catch (error: any) {
-            console.log(error);
+            if (error?.response?.status === 403) {
+                proModal.onOpen();
+            }
         } finally {
             router.refresh();
         }

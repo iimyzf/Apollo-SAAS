@@ -3,7 +3,7 @@
 import * as z from "zod";
 import { MusicIcon } from "lucide-react";
 import Heading from "@/components/heading";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchema } from "./constants";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
@@ -11,12 +11,13 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { ChatCompletionRequestMessage } from "openai";
 import axios from "axios";
 import Empty from "@/components/empty";
 import Loader from "@/components/loader";
+import { useProModule } from "@/hooks/use-pro-module";
 
 const MusicPage = () => {
+    const proModal = useProModule();
     const router = useRouter();
     const [music, setMusic] = useState<string>();
 
@@ -39,7 +40,9 @@ const MusicPage = () => {
 
             form.reset();
         } catch (error: any) {
-            console.log(error);
+            if (error?.response?.status === 403) {
+                proModal.onOpen();
+            }
         } finally {
             router.refresh();
         }
