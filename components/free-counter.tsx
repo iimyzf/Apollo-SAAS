@@ -10,10 +10,14 @@ import { useProModule } from "@/hooks/use-pro-module";
 
 interface FreeCounterProps {
     apiLimitCount: number;
+    isPro: boolean;
 }
 
-const FreeCounter = ({ apiLimitCount = 0 }: FreeCounterProps) => {
-	const proModal = useProModule();
+const FreeCounter = ({
+    apiLimitCount = 0,
+    isPro = false,
+}: FreeCounterProps) => {
+    const proModal = useProModule();
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -21,6 +25,8 @@ const FreeCounter = ({ apiLimitCount = 0 }: FreeCounterProps) => {
     }, []);
 
     if (!mounted) return null;
+
+    if (isPro) return null;
 
     return (
         <div className="px-3">
@@ -35,8 +41,12 @@ const FreeCounter = ({ apiLimitCount = 0 }: FreeCounterProps) => {
                             value={(apiLimitCount / MAX_FREE_COUNT) * 100}
                         ></Progress>
                     </div>
-                    <Button className="w-full" variant="pro" onClick={proModal.onOpen}>
-                        Upgrade <Zap className="w-4 h-4 ml-2 fill-white"/>{" "}
+                    <Button
+                        className="w-full"
+                        variant="pro"
+                        onClick={proModal.onOpen}
+                    >
+                        Upgrade <Zap className="w-4 h-4 ml-2 fill-white" />{" "}
                     </Button>
                 </CardContent>
             </Card>
