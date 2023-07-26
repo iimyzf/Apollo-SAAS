@@ -22,6 +22,8 @@ import {
 import { Card } from "./ui/card";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
+import axios from "axios";
+import { useState } from "react";
 
 const tools = [
     {
@@ -58,6 +60,20 @@ const tools = [
 
 const ProModal = () => {
     const proModal = useProModule();
+	const [loading, setLoading] = useState(false);
+
+    const onSubscribe = async () => {
+        try {
+			setLoading(true);
+            const response = await axios.get("/api/stripe");
+
+            window.location.href = response.data.url;
+        } catch (error) {
+            console.log("[CLIENT_ERROR]", error);
+        } finally {
+			setLoading(false);
+		}
+    };
 
     return (
         <Dialog open={proModal.isOpen} onOpenChange={proModal.onClose}>
@@ -104,7 +120,7 @@ const ProModal = () => {
                     </DialogDescription>
                 </DialogHeader>
                 <DialogFooter>
-                    <Button size="lg" variant="pro" className="w-full">
+                    <Button onClick={onSubscribe} size="lg" variant="pro" className="w-full">
                         Upgrade <Zap className="w-4 h-4 ml-2 fill-white" />
                     </Button>
                 </DialogFooter>
