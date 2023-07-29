@@ -25,6 +25,7 @@ import { Card, CardFooter } from "@/components/ui/card";
 import Image from "next/image";
 import { Url } from "next/dist/shared/lib/router/router";
 import { useProModule } from "@/hooks/use-pro-module";
+import toast from "react-hot-toast";
 
 const ImagePage = () => {
     const proModal = useProModule();
@@ -57,7 +58,9 @@ const ImagePage = () => {
         } catch (error: any) {
             if (error?.response?.status === 403) {
                 proModal.onOpen();
-            }
+            } else {
+				toast.error("Something went wrong!");
+			}
         } finally {
             router.refresh();
         }
