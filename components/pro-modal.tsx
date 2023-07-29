@@ -24,6 +24,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import axios from "axios";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 
 const tools = [
     {
@@ -69,7 +70,7 @@ const ProModal = () => {
 
             window.location.href = response.data.url;
         } catch (error) {
-            console.log("[CLIENT_ERROR]", error);
+			toast.error("Something went wrong!");
         } finally {
 			setLoading(false);
 		}
