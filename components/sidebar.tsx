@@ -75,9 +75,9 @@ const Sidebar = ({ apiLimitCount = 0, isPro = false }: SidebarProps) => {
                     className="flex items-center pl-3 mb-14"
                 >
                     <div className="relative w-8 h-8 mr-4">
-                        <Image fill src="/imyzf.jpg" layout="fill" alt={""} />
+                        <Image fill src="/apolloo.png" layout="fill" alt={""} />
                     </div>
-                    <h1 className="font-bold text-2xl">Apollo</h1>
+                    <h1 className="font-bold text-2xl">Apollo Vision</h1>
                 </Link>
                 <div className="space-y-1">
                     {routes.map((route) => (

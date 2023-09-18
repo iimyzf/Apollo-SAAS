@@ -13,9 +13,9 @@ export const LandingNavbar = () => {
         <nav className="p-4 bg-transparent flex items-center justify-between">
             <Link href="/" className="flex items-center">
                 <div className="relative h-8 w-8 mr-4">
-                    <Image fill src="/imyzf.jpg" alt="logo" />
+                    <Image fill src="/apolloo.png" alt="logo" />
                 </div>
-                <h1 className={cn("text-2xl font-bold text-white")}>Apollo</h1>
+                <h1 className={cn("text-2xl font-bold text-white")}>Apollo Vision</h1>
             </Link>
             <div className="flex items-center gap-x-2">
                 <Link href={isSignedIn ? "/dashboard" : "/sign-up"}>
